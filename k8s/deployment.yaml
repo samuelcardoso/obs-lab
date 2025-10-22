@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-reply
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: chat-reply } }
+  template:
+    metadata: { labels: { app: chat-reply } }
+    spec:
+      containers:
+        - name: chat-reply
+          image: chat-reply:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 3000 }]
+          readinessProbe:
+            httpGet: { path: /readyz, port: 3000 }
+            initialDelaySeconds: 2
+          livenessProbe:
+            httpGet: { path: /healthz, port: 3000 }
+            initialDelaySeconds: 5

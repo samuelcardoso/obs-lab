@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-reply
+  labels: { app: chat-reply }
+spec:
+  selector: { app: chat-reply }
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000

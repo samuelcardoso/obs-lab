@@ -1,0 +1,13 @@
+# k8s/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: chat-reply
+  labels: { release: monitoring } # precisa casar com o nome do helm release
+spec:
+  selector:
+    matchLabels: { app: chat-reply }
+  endpoints:
+    - port: http    # nome da porta no Service (vamos ajustar o Service)
+      path: /metrics
+      interval: 15s
